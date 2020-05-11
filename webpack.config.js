@@ -1,21 +1,7 @@
-const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  context: path.resolve(__dirname, 'src'),
-  mode: 'development',
-  entry: './index.js',
-  output: {
-    filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-  plugins: [
-    new HTMLWebpackPlugin({
-      template: 'template.html',
-    }),
-    new CleanWebpackPlugin(),
-  ],
+  mode: process.env.NODE_ENV || 'development',
   module: {
     rules: [
       {
@@ -26,5 +12,13 @@ module.exports = {
         },
       },
     ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'template.html',
+    }),
+  ],
+  devServer: {
+    contentBase: './dist',
   },
 };
