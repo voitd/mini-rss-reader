@@ -1,0 +1,27 @@
+name: rss-reader-ci
+
+on:
+  - push
+
+jobs:
+  run_linter:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [13.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install npm packeges
+        run: |
+          make install
+        env:
+          CI: true
+      - name: Run linter
+        run: |
+          make lint

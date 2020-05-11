@@ -1,11 +1,12 @@
+develop:
+	npx webpack-dev-server
+
 install:
-	npm ci
+	npm install
 
-publish:
-	npm publish --dry-run
-
-link:
-	npm link
+build:
+	rm -rf dist
+	NODE_ENV=production npx webpack
 
 lint:
 	npx eslint .
@@ -13,12 +14,11 @@ lint:
 fix:
 	eslint . --fix
 
-build:
-	rm -rf dist
-	npm run build
-
 test:
 	npm test
 
 test-coverage:
 	npm test -- --coverage
+
+webpack:
+	npx webpack
