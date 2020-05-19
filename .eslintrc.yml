@@ -3,6 +3,7 @@ plugins:
 
 env:
   node: true
+  browser: true
 
 parser: babel-eslint
 

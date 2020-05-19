@@ -1,4 +1,4 @@
-develop:
+dev:
 	npx webpack-dev-server
 
 install:

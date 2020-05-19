@@ -1,30 +1,44 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Hexlet Frontend Project</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSSReader</title>
   </head>
-
-  <body class="d-flex flex-column h-100">
+  <body>
     <div class="container mt-5">
-      <div class="jumbotron">
-        <h1>RSS Reader</h1>
-        <p class="lead">Start reading RSS today! It is easy, it is nicely.</p>
-        <p class="text-muted">https://ru.hexlet.io/lessons.rss</p>
+      <div class="jumbotron card card-image"
+        style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+        
+        <h1 class="card-title h1"><i class="fas fa-rss-square"></i> RSS Reader</h1>
+        <p class="font-weight-bold">Start reading RSS today! It is easy, it is nicely.</p>
+        <p class="text-muted">http://lorem-rss.herokuapp.com/feed</p>
         <form action="" class="form-inline rss-form">
-          <div class="form-group">
-            <input type="text" required name="url" class="form-control" placeholder="rss link" />
+          <label class="sr-only" for="urlInput">Adress</label>
+          <div class="input-group col-sm-5">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="background: #00acee;" ><i class="fas fa-rss"></i></div>
+            </div>
+            <input type="text" name= "url" class="form-control" id="urlInput" placeholder="url here">
           </div>
-          <button type="submit" class="btn btn-primary ml-1">Add</button>
+          <button type="submit" class="btn btn-outline-light">Add</button>
+          <!-- error -->
+          
         </form>
-        <div class="feedback"></div>
+        <div class="error-message"></div>
       </div>
-
+      
       <div class="row">
-        <div class="col rss-items"></div>
-
-        <div class="col rss-links"></div>
+        <div class="col rss-items">item
+        </div>
+  
+        <div class="col rss-links">link
+        </div>
       </div>
-    </div>
-  </body>
+  
+      <footer class="footer">
+        <p>&copy; Dimytr Voitenko</p>
+      </footer>
+  
+    </div> <!-- /container -->
 </html>
