@@ -3,10 +3,6 @@
 // Mодель — это не только совокупность кода доступа к данным и СУБД,
 // но и вся бизнес-логика;
 // также, модели могут инкапсулировать в себе другие модели
-
-// import _ from 'lodash';
-// import i18n from 'i18next';
-// import resources from './locales';
 import axios from 'axios';
 import * as yup from 'yup';
 import parse from './parse';

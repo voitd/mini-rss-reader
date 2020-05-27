@@ -11,9 +11,6 @@ const listen = (channels, form, input, state) => {
     const { name, value } = target;
     state.form.fields[name] = value;
     const errors = validateURL(value, state.data.urls);
-    // if (!value) {
-    //   state.form.processState = 'filling';
-    // }
     if (isEqual(errors, {}) || !value) {
       state.form.processState = 'filling';
       state.form.errors = '';

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development",
     "webpack-dev-server": "webpack-dev-server --open",
-    "now-build": "rm -rf dist && mkdir dist && echo 'Starting builds...' > ./dist/index.html"
+    "build": "rm -rf dist && mkdir dist && echo 'Starting builds...' > ./dist/index.html"
   },
   "repository": {
     "type": "git",
