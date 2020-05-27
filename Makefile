@@ -14,11 +14,5 @@ lint:
 fix:
 	eslint . --fix
 
-test:
-	npm test
-
-test-coverage:
-	npm test -- --coverage
-
 webpack:
 	npx webpack

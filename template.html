@@ -7,36 +7,32 @@
   </head>
   <body>
     <div class="container mt-5">
-      <div class="jumbotron card card-image"
-        style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+      <div class="jumbotron card card-image">
         
-        <h1 class="card-title h1"><i class="fas fa-rss-square"></i> RSS Reader</h1>
+        <h1 class="card-title h1"> RSS Reader</h1>
         <p class="font-weight-bold">Start reading RSS today! It is easy, it is nicely.</p>
         <p class="text-muted">http://lorem-rss.herokuapp.com/feed</p>
-        <form action="" class="form-inline rss-form">
-          <label class="sr-only" for="urlInput">Adress</label>
-          <div class="input-group col-sm-5">
+        <form class="form-inline rss-form">
+          <div class="input-group w-50">
             <div class="input-group-prepend">
-              <div class="input-group-text" style="background: #00acee;" ><i class="fas fa-rss"></i></div>
+              <div class="input-group-text" >rss:</div>
             </div>
-            <input type="text" name= "url" class="form-control" id="urlInput" placeholder="url here">
+            <input type="text" name= "url" class="form-control text-muted" id="urlInput" placeholder="url here...">
           </div>
-          <button type="submit" class="btn btn-outline-light">Add</button>
-          <!-- error -->
+          <div class="col-auto">
+            <button type="submit" class="btn btn-outline-secondary">Add</button>
+          </div>
           
         </form>
-        <div class="error-message"></div>
+        <div class="alert mt-2 w-50 invisible" role="alert">Danger</div>
       </div>
-      
+
       <div class="row">
-        <div class="col rss-items">item
-        </div>
-  
-        <div class="col rss-links">link
-        </div>
+        <div class="col rss-channel"></div>
+        <div class="col rss-items"></div>
       </div>
   
-      <footer class="footer">
+      <footer class="footer container fixed-bottom">
         <p>&copy; Dimytr Voitenko</p>
       </footer>
   
