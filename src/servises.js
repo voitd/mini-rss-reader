@@ -10,6 +10,12 @@ import parse from './parse';
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const makeProxyBasedURL = (url) => `${PROXY_URL}${url}`;
 
+export const addURL = (url, urls) => {
+  const proxyURL = makeProxyBasedURL(url);
+  if (urls.includes(url)) return;
+  urls.push(proxyURL);
+};
+
 export const validateURL = (url, urls) => {
   const proxyURL = makeProxyBasedURL(url);
   const schema = yup.object().shape({
@@ -18,7 +24,6 @@ export const validateURL = (url, urls) => {
   });
   try {
     schema.validateSync({ isUrl: url, isExist: proxyURL }, { abortEarly: false });
-    urls.push(proxyURL);
     return {};
   } catch (e) {
     return e.message;
@@ -28,9 +33,11 @@ export const validateURL = (url, urls) => {
 export const getFeedData = (state) => {
   const promiseUrls = state.data.urls.map(axios.get);
   return Promise.all(promiseUrls)
-    .then((response) => response.map((elm) => parse(elm.data)))
-    .then((feed) => (state.data.feeds = feed.map((item) => item.rss.channel)))
-    .catch((e) => (state.form.errors = e));
+    .then((response) => response.map((elm) => parse(elm.data)));
+  // .catch((e) => {
+  //   state.form.errors.message = e;
+  //   state.form.errors.type = 'danger';
+  // });
   // .finally(() => {
   //   setInterval(() => getFeeds(state), 5000);
   // });

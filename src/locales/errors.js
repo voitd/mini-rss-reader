@@ -8,3 +8,5 @@ const errorMessages = {
     doubleUrl: 'This url is added from feeds list',
   },
 };
+
+export default errorMessages;

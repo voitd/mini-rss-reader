@@ -9,7 +9,10 @@ const app = () => {
       fields: {
         url: '',
       },
-      errors: '',
+      errors: {
+        message: '',
+        type: 'danger',
+      },
     },
     data: {
       feeds: [],
@@ -21,24 +24,33 @@ const app = () => {
   const form = document.querySelector('.rss-form');
   const input = document.querySelector('#urlInput');
   const btn = document.querySelector('.btn');
-  const alert = document.querySelector('.alert');
+  const alert = document.querySelector('.feedback');
   const channels = document.querySelector('.rss-channel');
   const items = document.querySelector('.rss-items');
 
-  const showAlert = (type, error) => {
-    console.log('showAlert -> error', error, type);
-    if (!error) return;
+  const showAlert = (message, type) => {
+    if (!message) return;
     if (alert.innerHTML !== '') {
       alert.innerHTML = '';
     }
     alert.classList.remove('invisible');
-    alert.classList.add(`alert-${type}`, `text-${type}`);
-    alert.classList.add();
-    //  TODO: Make as elements
-    alert.innerHTML = `
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span></button>
-      ${error}`;
+
+    const div = document.createElement('div');
+    const closeBtn = document.createElement('button');
+    const span = document.createElement('span');
+
+    div.setAttribute('class', `alert mt-2 w-50 alert-${type} text-${type} fade show`);
+    div.setAttribute('role', 'alert');
+    closeBtn.setAttribute('type', 'button');
+    closeBtn.setAttribute('class', 'close');
+    closeBtn.setAttribute('data-dismiss', 'alert');
+    closeBtn.setAttribute('aria-label', 'Close');
+    span.setAttribute('aria-hidden', 'true');
+    div.append(closeBtn);
+    closeBtn.append(span);
+    span.innerHTML = '&times;';
+    div.textContent = message;
+    alert.append(div);
   };
 
   const renderNews = () => {
@@ -50,22 +62,27 @@ const app = () => {
       : feeds.filter((channel) => state.data.activeFeedId === channel.id);
     const actualNews = news
       .flatMap((channel) => channel.item)
-      .map(
-        //  TODO: Make as elements
-        ({ title, description, link }) => `
-        <li class="list-group-item">
-        <h5 class="mb-2">
-          <a href="${link}">${title}</a>
-        </h5>
-        <h6>${description}</h6>
-      </li>`,
-      )
-      .join('');
-    list.innerHTML = actualNews;
+      .forEach(({ title, description, link }) => {
+        const li = document.createElement('li');
+        const h5 = document.createElement('h5');
+        const a = document.createElement('a');
+        const h6 = document.createElement('h6');
+        li.className = 'list-group-item';
+        h5.className = 'mb-2';
+        a.href = link;
+        a.textContent = title;
+        h5.append(a);
+        h6.textContent = description;
+        li.append(h5);
+        li.append(h6);
+        list.append(li);
+      });
+    list.append(actualNews);
     items.innerHTML = '';
     items.append(list);
   };
   const renderChannelsList = () => {
+    channels.innerHTML = '';
     const list = document.createElement('div');
     list.className = 'list-group';
     state.data.feeds.forEach((channel) => {
@@ -101,7 +118,7 @@ const app = () => {
       a.append(small);
       list.append(a);
     });
-    channels.innerHTML = '';
+
     channels.append(list);
   };
 
@@ -114,34 +131,37 @@ const app = () => {
 
   watch(state.form, 'processState', () => {
     const { processState } = state.form;
-    console.log('app -> processState', processState);
     switch (processState) {
       case 'error':
         btn.disabled = true;
         input.classList.add('is-invalid');
-        showAlert('danger', state.form.errors);
-        console.log('app -> state.form.errors', state.form.errors);
+
         break;
       case 'filling':
-        btn.disabled = false;
         input.value = '';
+        btn.disabled = false;
+
+        input.disabled = false;
         alert.classList.add('invisible');
         input.classList.remove('is-invalid');
+        console.log(alert);
         break;
       case 'sending':
         btn.disabled = true;
         input.disabled = true;
-        showAlert('warning', 'Wait a few seconds.Feeds is loaded...');
         break;
       case 'finished':
-        btn.disabled = false;
         input.value = '';
+        btn.disabled = false;
+        input.disabled = false;
         input.classList.remove('is-invalid');
-        showAlert('success', 'RSS is added');
         break;
       default:
         throw new Error('Unknown state');
     }
+  });
+  watch(state.form.errors, ['message', 'type'], () => {
+    showAlert(state.form.errors.message, state.form.errors.type);
   });
 };
 
