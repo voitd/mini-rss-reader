@@ -15,10 +15,10 @@ i18next.init({
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const makeProxyBasedURL = (url) => `${PROXY_URL}${url}`;
 
-export const addURL = (url, urls) => {
+export const addNewFeed = (url, feeds) => {
   const proxyURL = makeProxyBasedURL(url);
-  if (urls.includes(proxyURL)) return;
-  urls.push(proxyURL);
+  if (feeds.includes(proxyURL)) return;
+  feeds.push(proxyURL);
 };
 
 export const validateURL = (url, urls) => {
@@ -35,18 +35,23 @@ export const validateURL = (url, urls) => {
   }
 };
 
-export const getFeedData = (state) => {
+export const updateFeedData = (state) => {
   const promiseUrls = state.data.urls.map(axios.get);
+
   return Promise.all(promiseUrls)
     .then((response) => response.map((elm) => parse(elm.data)))
     .then((data) => {
-      const newItems = data.flatMap((item) => item.rss.channel.item);
-      const diff = differenceBy(newItems, state.data.news, 'link');
+      const oldChannels = state.data.feeds;
+      const updateChannels = data.map((item) => item.rss.channel);
+      const newChannels = differenceBy(updateChannels, oldChannels, 'link');
+      state.data.feeds = [...newChannels, ...oldChannels];
 
-      state.data.feeds = data.map((item) => item.rss.channel);
-      state.data.news = [...state.data.news, ...diff];
+      const oldItems = state.data.news;
+      const updateItems = data.flatMap((item) => item.rss.channel.item);
+      const newItems = differenceBy(updateItems, oldItems, 'link');
+      state.data.news = [...newItems, ...oldItems];
     })
     .finally(() => {
-      setInterval(() => getFeedData(state), 5000);
+      setTimeout(() => updateFeedData(state), 30000);
     });
 };

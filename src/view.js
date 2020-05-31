@@ -10,7 +10,7 @@ const app = () => {
   const state = {
     form: {
       processState: 'finished',
-      fields: {
+      input: {
         url: '',
       },
       errors: {
@@ -167,7 +167,7 @@ const app = () => {
         input.disabled = false;
         setTimeout(() => {
           hideAlert();
-        }, 3000);
+        }, 5000);
         break;
       default:
         throw new Error('Unknown state');

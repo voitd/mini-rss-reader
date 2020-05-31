@@ -1,12 +1,12 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
 import { isEqual } from 'lodash';
-import { addURL, getFeedData, validateURL } from './servises';
+import { addNewFeed, updateFeedData, validateURL } from './servises';
 
 const listen = (channels, form, input, state) => {
   const feedList = state.data.urls;
 
-  const updateValidationState = (process, type, style) => {
+  const updateAlertState = (process, type, style) => {
     state.form.processState = process;
     state.form.errors.type = type;
     state.form.errors.style = style;
@@ -14,29 +14,29 @@ const listen = (channels, form, input, state) => {
 
   input.addEventListener('input', ({ target }) => {
     const { name, value } = target;
-    state.form.fields[name] = value;
+    state.form.input[name] = value;
 
     const errors = validateURL(value, feedList);
 
     if (isEqual(errors, {})) {
       state.form.processState = 'valid';
     } else {
-      updateValidationState('error', errors, 'danger');
+      updateAlertState('error', errors, 'danger');
     }
   });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const valideURL = state.form.fields.url;
-    addURL(valideURL, feedList);
-    updateValidationState('sending', 'warning', 'warning');
+    const validURL = state.form.input.url;
+    addNewFeed(validURL, feedList);
 
-    getFeedData(state)
-      .then(updateValidationState('finished', 'success', 'success'))
+    updateFeedData(state)
+      .then(updateAlertState('sending', 'warning', 'warning'))
       .catch((err) => {
-        updateValidationState('error', 'network', 'danger');
+        updateAlertState('error', 'network', 'danger');
         throw err;
       });
+    updateAlertState('finished', 'success', 'success');
   });
 
   channels.addEventListener('click', ({ target }) => {
