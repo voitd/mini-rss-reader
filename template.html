@@ -9,20 +9,21 @@
 
 <body>
   <div class="container mt-5">
-    <div class="jumbotron card card-image">
+    <div class="jumbotron card card-image"
+    style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
 
       <h1 class="card-title h1"> RSS Reader</h1>
       <p class="font-weight-bold">Start reading RSS today! It is easy, it is nicely.</p>
-      <p class="text-muted">http://lorem-rss.herokuapp.com/feed or http://lorem-rss.herokuapp.com/feed?unit=second&interval=60</p>
+      <p class="text-muted">For example: http://feeds.bbci.co.uk/news/technology/rss.xml</p>
       <form class="form-inline rss-form">
         <div class="input-group w-50">
           <div class="input-group-prepend">
-            <div class="input-group-text">rss:</div>
+            <div class="input-group-text" style="background: #00acee;">rss:</div>
           </div>
           <input type="text" name="url" class="form-control text-muted" id="urlInput" placeholder="url here...">
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-outline-success" disabled>Add</button>
+          <button type="submit" class="btn btn-outline-light" disabled>Add</button>
         </div>
 
       </form>
