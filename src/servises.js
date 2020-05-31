@@ -52,6 +52,6 @@ export const updateFeedData = (state) => {
       state.data.news = [...newItems, ...oldItems];
     })
     .finally(() => {
-      setTimeout(() => updateFeedData(state), 30000);
+      setTimeout(() => updateFeedData(state), 5000);
     });
 };
