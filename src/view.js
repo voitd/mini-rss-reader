@@ -139,11 +139,11 @@ const app = () => {
     channels.append(list);
   };
 
-  listen(channels, form, input, state);
-
   watch(state.data, ['activeFeedId', 'feeds'], renderChannelsList);
 
   watch(state.data, ['activeFeedId', 'news'], renderNews);
+
+  watch(state.form.errors, showAlert);
 
   watch(state.form, 'processState', () => {
     const { processState } = state.form;
@@ -173,7 +173,7 @@ const app = () => {
         throw new Error('Unknown state');
     }
   });
-  watch(state.form.errors, showAlert);
+  listen(channels, form, input, state);
 };
 
 export default app;
