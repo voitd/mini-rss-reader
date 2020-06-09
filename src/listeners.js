@@ -1,42 +1,54 @@
-/* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
-import { isEqual } from 'lodash';
-import { addNewFeed, updateFeedData, validateURL } from './servises';
+
+import { getFeedData, updateFeedData, validateURL } from './services';
 
 const listen = (channels, form, input, state) => {
-  const feedList = state.data.urls;
-
-  const updateAlertState = (process, type, style) => {
+  const updateProcessState = (process, message = '') => {
+    const alertType = {
+      sending: () => {
+        state.form.errors.type = 'warning';
+        state.form.errors.style = 'warning';
+      },
+      finished: () => {
+        state.form.errors.type = 'success';
+        state.form.errors.style = 'success';
+      },
+      error: () => {
+        state.form.errors.type = message;
+        state.form.errors.style = 'danger';
+      },
+    };
     state.form.processState = process;
-    state.form.errors.type = type;
-    state.form.errors.style = style;
+    alertType[process]();
   };
 
   input.addEventListener('input', ({ target }) => {
     const { name, value } = target;
-    state.form.input[name] = value;
+    const feeds = state.data.feeds.map(({ url }) => url);
 
-    const errors = validateURL(value, feedList);
-
-    if (isEqual(errors, {})) {
-      state.form.processState = 'valid';
-    } else {
-      updateAlertState('error', errors, 'danger');
-    }
+    validateURL(value, feeds)
+      .then(() => {
+        state.form.input[name] = value;
+        state.form.processState = 'valid';
+      })
+      .catch((err) => {
+        updateProcessState('error', err.message);
+      });
   });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const validURL = state.form.input.url;
-    addNewFeed(validURL, feedList);
+    updateProcessState('sending');
 
-    updateFeedData(state)
-      .then(updateAlertState('sending', 'warning', 'warning'))
+    getFeedData(state)
+      .then(() => {
+        updateProcessState('finished');
+        updateFeedData(state);
+      })
       .catch((err) => {
-        updateAlertState('error', 'network', 'danger');
+        updateProcessState('error', 'network');
         throw err;
       });
-    updateAlertState('finished', 'success', 'success');
   });
 
   channels.addEventListener('click', ({ target }) => {
