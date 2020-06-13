@@ -16,3 +16,6 @@ fix:
 
 webpack:
 	npx webpack
+
+deploy:
+	vercel
