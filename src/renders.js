@@ -4,7 +4,7 @@ const renderNews = (elm, state) => {
   const list = document.createElement("ul");
   list.className = "list-group";
   const { news, activeFeedId } = state.data;
-  const items = activeFeedId !== 0 ? news.filter(({ id }) => activeFeedId === id) : news;
+  const items = activeFeedId ? news.filter(({ id }) => activeFeedId === id) : news;
   items.forEach(({ title, description, link }) => {
     const li = document.createElement("li");
     const h5 = document.createElement("h5");
