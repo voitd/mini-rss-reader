@@ -1,66 +1,78 @@
-import { watch } from 'melanke-watchjs';
-import listen from './listeners';
-import { renderNews, renderChannels, renderAlert, hideAlert } from './renders';
+import { watch } from "melanke-watchjs";
+import listen from "./listeners";
+import { renderNews, renderChannels, renderAlert } from "./renders";
 
 const app = () => {
   const state = {
     form: {
-      processState: 'finished',
+      processState: "finished",
       input: {
-        url: '',
+        url: "",
       },
       errors: {
-        type: '',
-        style: '',
+        message: "",
+        type: "",
+        style: "",
       },
     },
     data: {
       feeds: [],
       news: [],
-      activeFeedId: 0,
+      activeFeedId: null,
     },
   };
 
-  const form = document.querySelector('.rss-form');
-  const input = document.querySelector('#urlInput');
-  const btn = document.querySelector('.btn');
-  const channels = document.querySelector('.rss-channel');
+  const form = document.querySelector(".rss-form");
+  const input = document.querySelector("input");
+  const btn = document.querySelector(".btn");
+  const channelsList = document.querySelector(".rss-channel");
+  const itemsList = document.querySelector(".rss-items");
+  const alert = document.querySelector(".feedback");
 
-  watch(state.data, ['activeFeedId', 'feeds'], () => renderChannels(state));
+  listen(channelsList, form, input, state);
 
-  watch(state.data, ['activeFeedId', 'news'], () => renderNews(state));
+  watch(state.data, ["activeFeedId", "feeds"], () => renderChannels(channelsList, state));
 
-  watch(state.form.errors, () => renderAlert(state.form.errors));
+  watch(state.data, ["activeFeedId", "news"], () => renderNews(itemsList, state));
 
-  watch(state.form, 'processState', () => {
-    const { processState } = state.form;
+  watch(state.form.errors, () => renderAlert(alert, state.form.errors));
+
+  watch(state.form, "processState", () => {
+    const { processState, errors } = state.form;
     switch (processState) {
-      case 'error':
+      case "error":
         btn.disabled = true;
-        input.classList.add('is-invalid');
+        input.classList.add("is-invalid");
+        errors.type = errors.message;
+        errors.style = "danger";
         break;
-      case 'valid':
+      case "valid":
         btn.disabled = false;
         input.disabled = false;
-        hideAlert();
+        input.classList.remove("is-invalid");
+        alert.classList.add("invisible");
         break;
-      case 'sending':
+      case "sending":
         btn.disabled = true;
         input.disabled = true;
+        errors.type = "warning";
+        errors.style = "warning";
         break;
-      case 'finished':
-        input.value = '';
+      case "finished":
+        input.value = "";
         btn.disabled = true;
         input.disabled = false;
+        errors.type = "success";
+        errors.style = "success";
         setTimeout(() => {
-          hideAlert();
+          input.classList.remove("is-invalid");
+          alert.classList.add("invisible");
         }, 5000);
         break;
       default:
-        throw new Error('Unknown state');
+        throw new Error(`${state.form.processState}:Unknown state`);
     }
   });
-  listen(channels, form, input, state);
 };
 
 export default app;
