@@ -3,8 +3,8 @@ import i18next from "i18next";
 const renderNews = (elm, state) => {
   const list = document.createElement("ul");
   list.className = "list-group";
-  const { news, activeFeedId } = state.data;
-  const items = activeFeedId ? news.filter(({ id }) => activeFeedId === id) : news;
+  const { news, activeFeedID } = state.data;
+  const items = activeFeedID ? news.filter(({ id }) => activeFeedID === id) : news;
   items.forEach(({ title, description, link }) => {
     const li = document.createElement("li");
     const h5 = document.createElement("h5");
@@ -25,9 +25,10 @@ const renderNews = (elm, state) => {
 };
 
 const renderChannels = (elm, state) => {
+  const { feeds, activeFeedID } = state.data;
   const list = document.createElement("div");
   list.className = "list-group";
-  state.data.feeds.forEach(({ id, title, description, link }) => {
+  feeds.forEach(({ id, title, description, link }) => {
     const a = document.createElement("a");
     const p = document.createElement("p");
     const div = document.createElement("div");
@@ -39,12 +40,10 @@ const renderChannels = (elm, state) => {
     const url = document.createTextNode(link);
 
     const count = state.data.news.filter((post) => post.id === id).length;
+    let classes = "list-group-item list-group-item-action";
+    if (id === activeFeedID) classes += " active";
 
-    if (id === state.data.activeFeedId) {
-      a.setAttribute("class", "list-group-item list-group-item-action active");
-    } else {
-      a.setAttribute("class", "list-group-item list-group-item-action");
-    }
+    a.setAttribute("class", classes);
     a.id = id;
     div.setAttribute("class", "d-flex w-100 align-items-center justify-content-between");
     h5.setAttribute("class", "mb-1");

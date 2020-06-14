@@ -18,7 +18,7 @@ const app = () => {
     data: {
       feeds: [],
       news: [],
-      activeFeedId: null,
+      activeFeedID: null,
     },
   };
 
@@ -31,9 +31,9 @@ const app = () => {
 
   listen(channelsList, form, input, state);
 
-  watch(state.data, ["activeFeedId", "feeds"], () => renderChannels(channelsList, state));
+  watch(state.data, ["activeFeedID", "feeds"], () => renderChannels(channelsList, state));
 
-  watch(state.data, ["activeFeedId", "news"], () => renderNews(itemsList, state));
+  watch(state.data, ["activeFeedID", "news"], () => renderNews(itemsList, state));
 
   watch(state.form.errors, () => renderAlert(alert, state.form.errors));
 

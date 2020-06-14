@@ -32,7 +32,7 @@ const listen = (channels, form, input, state) => {
 
   channels.addEventListener("click", ({ target }) => {
     const feed = target.closest("a");
-    state.data.activeFeedId = feed.id;
+    state.data.activeFeedID = feed.id;
   });
 };
 
