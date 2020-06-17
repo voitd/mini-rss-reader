@@ -25,7 +25,7 @@ const renderNews = (elm, state) => {
 };
 
 const renderChannels = (elm, state) => {
-  const { feeds, activeFeedID } = state.data;
+  const { feeds, news, activeFeedID } = state.data;
   const list = document.createElement('div');
   list.className = 'list-group';
   feeds.forEach(({ id, title, description, link }) => {
@@ -39,7 +39,7 @@ const renderChannels = (elm, state) => {
     const desc = document.createTextNode(description);
     const url = document.createTextNode(link);
 
-    const count = state.data.news.filter((post) => post.id === id).length;
+    const count = news.filter((post) => post.id === id).length;
     let classes = 'list-group-item list-group-item-action';
     if (id === activeFeedID) classes += ' active';
 
@@ -65,8 +65,8 @@ const renderChannels = (elm, state) => {
   elm.append(list);
 };
 
-const renderAlert = (elm, errors) => {
-  const { type, style } = errors;
+const renderAlert = (elm, state) => {
+  const { type, style } = state.form.errors;
   const message = i18next.t(`alert.${type}`);
 
   if (elm.innerHTML !== '') {

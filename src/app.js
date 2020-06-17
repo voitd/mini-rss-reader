@@ -1,7 +1,6 @@
-import { watch } from 'melanke-watchjs';
 import i18next from 'i18next';
 import listen from './listeners';
-import { renderNews, renderChannels, renderAlert } from './renders';
+import watchState from './watchers';
 
 import resources from './locales';
 
@@ -30,57 +29,18 @@ const app = () => {
     },
   };
 
-  const form = document.querySelector('.rss-form');
-  const input = document.querySelector('input');
-  const btn = document.querySelector('.btn');
-  const channelsList = document.querySelector('.rss-channel');
-  const itemsList = document.querySelector('.rss-items');
-  const alert = document.querySelector('.feedback');
+  const DOMElements = {
+    form: document.querySelector('.rss-form'),
+    input: document.querySelector('input'),
+    btn: document.querySelector('.btn'),
+    channelsList: document.querySelector('.rss-channel'),
+    itemsList: document.querySelector('.rss-items'),
+    alert: document.querySelector('.feedback'),
+  };
 
-  listen(channelsList, form, input, state);
+  listen(state, DOMElements);
 
-  watch(state.data, ['activeFeedID', 'feeds'], () => renderChannels(channelsList, state));
-
-  watch(state.data, ['activeFeedID', 'news'], () => renderNews(itemsList, state));
-
-  watch(state.form.errors, () => renderAlert(alert, state.form.errors));
-
-  watch(state.form, 'processState', () => {
-    const { processState, errors } = state.form;
-    switch (processState) {
-      case 'error':
-        btn.disabled = true;
-        input.classList.add('is-invalid');
-        errors.type = errors.message;
-        errors.style = 'danger';
-        break;
-      case 'valid':
-        btn.disabled = false;
-        input.disabled = false;
-        input.classList.remove('is-invalid');
-        alert.classList.add('invisible');
-        break;
-      case 'sending':
-        btn.disabled = true;
-        input.disabled = true;
-        errors.type = 'warning';
-        errors.style = 'warning';
-        break;
-      case 'finished':
-        input.value = '';
-        btn.disabled = true;
-        input.disabled = false;
-        errors.type = 'success';
-        errors.style = 'success';
-        setTimeout(() => {
-          input.classList.remove('is-invalid');
-          alert.classList.add('invisible');
-        }, 5000);
-        break;
-      default:
-        throw new Error(`${state.form.processState}:Unknown state`);
-    }
-  });
+  watchState(state, DOMElements);
 };
 
 export default app;

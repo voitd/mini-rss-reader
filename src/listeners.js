@@ -1,6 +1,8 @@
 import { getFeedData, updateFeedData, validateURL } from './services';
 
-const listen = (channels, form, input, state) => {
+const listen = (state, DOMElements) => {
+  const { channelsList, form, input } = DOMElements;
+
   input.addEventListener('input', ({ target }) => {
     const { name, value } = target;
     const feeds = state.data.feeds.map(({ url }) => url);
@@ -30,7 +32,7 @@ const listen = (channels, form, input, state) => {
       });
   });
 
-  channels.addEventListener('click', ({ target }) => {
+  channelsList.addEventListener('click', ({ target }) => {
     const feed = target.closest('a');
     state.data.activeFeedID = feed.id;
   });
