@@ -1,24 +1,18 @@
-import axios from "axios";
-import * as yup from "yup";
-import i18next from "i18next";
-import { differenceBy, uniqueId } from "lodash";
-import parse from "./parse";
-import resources from "./locales";
+import axios from 'axios';
+import * as yup from 'yup';
+import i18next from 'i18next';
+import { differenceBy, uniqueId } from 'lodash';
+import parse from './parse';
 
-i18next.init({
-  lng: "en",
-  resources,
-});
-
-const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 const makeProxyBasedURL = (url) => `${PROXY_URL}${url}`;
 
 export const validateURL = (url, feeds) =>
   yup
     .string()
-    .url(i18next.t("url"))
-    .required(i18next.t("required"))
-    .notOneOf(feeds, i18next.t("notOneOf"))
+    .url(i18next.t('url'))
+    .required(i18next.t('required'))
+    .notOneOf(feeds, i18next.t('notOneOf'))
     .validate(url);
 
 export const getFeedData = (state) => {
@@ -50,7 +44,7 @@ export const updateFeedData = (state) => {
     .then((parsedData) => {
       const updatedFeeds = parsedData.map((item) => item);
 
-      const newFeeds = differenceBy(updatedFeeds, feeds, "link");
+      const newFeeds = differenceBy(updatedFeeds, feeds, 'link');
       state.data.feeds = [...newFeeds, ...feeds];
 
       const updatedItems = parsedData.flatMap(({ items, link }) => {
@@ -59,7 +53,7 @@ export const updateFeedData = (state) => {
         return items.map((item) => ({ id, ...item }));
       });
 
-      const newItems = differenceBy(updatedItems, news, "link");
+      const newItems = differenceBy(updatedItems, news, 'link');
       state.data.news = [...newItems, ...news];
     })
     .finally(() => {

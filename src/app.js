@@ -1,18 +1,26 @@
-import { watch } from "melanke-watchjs";
-import listen from "./listeners";
-import { renderNews, renderChannels, renderAlert } from "./renders";
+import { watch } from 'melanke-watchjs';
+import i18next from 'i18next';
+import listen from './listeners';
+import { renderNews, renderChannels, renderAlert } from './renders';
+
+import resources from './locales';
+
+i18next.init({
+  lng: 'en',
+  resources,
+});
 
 const app = () => {
   const state = {
     form: {
-      processState: "finished",
+      processState: 'finished',
       input: {
-        url: "",
+        url: '',
       },
       errors: {
-        message: "",
-        type: "",
-        style: "",
+        message: '',
+        type: '',
+        style: '',
       },
     },
     data: {
@@ -22,51 +30,51 @@ const app = () => {
     },
   };
 
-  const form = document.querySelector(".rss-form");
-  const input = document.querySelector("input");
-  const btn = document.querySelector(".btn");
-  const channelsList = document.querySelector(".rss-channel");
-  const itemsList = document.querySelector(".rss-items");
-  const alert = document.querySelector(".feedback");
+  const form = document.querySelector('.rss-form');
+  const input = document.querySelector('input');
+  const btn = document.querySelector('.btn');
+  const channelsList = document.querySelector('.rss-channel');
+  const itemsList = document.querySelector('.rss-items');
+  const alert = document.querySelector('.feedback');
 
   listen(channelsList, form, input, state);
 
-  watch(state.data, ["activeFeedID", "feeds"], () => renderChannels(channelsList, state));
+  watch(state.data, ['activeFeedID', 'feeds'], () => renderChannels(channelsList, state));
 
-  watch(state.data, ["activeFeedID", "news"], () => renderNews(itemsList, state));
+  watch(state.data, ['activeFeedID', 'news'], () => renderNews(itemsList, state));
 
   watch(state.form.errors, () => renderAlert(alert, state.form.errors));
 
-  watch(state.form, "processState", () => {
+  watch(state.form, 'processState', () => {
     const { processState, errors } = state.form;
     switch (processState) {
-      case "error":
+      case 'error':
         btn.disabled = true;
-        input.classList.add("is-invalid");
+        input.classList.add('is-invalid');
         errors.type = errors.message;
-        errors.style = "danger";
+        errors.style = 'danger';
         break;
-      case "valid":
+      case 'valid':
         btn.disabled = false;
         input.disabled = false;
-        input.classList.remove("is-invalid");
-        alert.classList.add("invisible");
+        input.classList.remove('is-invalid');
+        alert.classList.add('invisible');
         break;
-      case "sending":
+      case 'sending':
         btn.disabled = true;
         input.disabled = true;
-        errors.type = "warning";
-        errors.style = "warning";
+        errors.type = 'warning';
+        errors.style = 'warning';
         break;
-      case "finished":
-        input.value = "";
+      case 'finished':
+        input.value = '';
         btn.disabled = true;
         input.disabled = false;
-        errors.type = "success";
-        errors.style = "success";
+        errors.type = 'success';
+        errors.style = 'success';
         setTimeout(() => {
-          input.classList.remove("is-invalid");
-          alert.classList.add("invisible");
+          input.classList.remove('is-invalid');
+          alert.classList.add('invisible');
         }, 5000);
         break;
       default:
