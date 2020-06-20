@@ -13,7 +13,7 @@ This is an educational project [Hexlet](https://ru.hexlet.io/pages/about?utm_sou
 
 ### Screenshot
 
-<img width="820" alt="RSSReader-Hexlet-FrontEnd-lvl3" src="https://user-images.githubusercontent.com/60138143/83361639-3bfa4980-a393-11ea-93b8-adb6be9583c6.png">
+<img width="820" alt="RSSReader-Hexlet-FrontEnd-lvl3" src="https://user-images.githubusercontent.com/60138143/85205244-c72b8700-b322-11ea-9fac-c07182271316.png">
 
 ## Installation
 
