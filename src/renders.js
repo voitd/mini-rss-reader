@@ -1,9 +1,9 @@
 import i18next from 'i18next';
 
 const renderNews = (elm, state) => {
+  const { news, activeFeedID } = state.data;
   const list = document.createElement('ul');
   list.className = 'list-group';
-  const { news, activeFeedID } = state.data;
   const items = activeFeedID ? news.filter(({ id }) => activeFeedID === id) : news;
   items.forEach(({ title, description, link }) => {
     const li = document.createElement('li');

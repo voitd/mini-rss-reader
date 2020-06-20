@@ -1,7 +1,7 @@
 import { getFeedData, updateFeedData, validateURL } from './services';
 
-const listen = (state, DOMElements) => {
-  const { channelsList, form, input } = DOMElements;
+const listen = (state, domElements) => {
+  const { channelsList, form, input } = domElements;
 
   input.addEventListener('input', ({ target }) => {
     const { name, value } = target;
@@ -22,7 +22,7 @@ const listen = (state, DOMElements) => {
     state.form.processState = 'sending';
     getFeedData(state)
       .then(() => {
-        state.form.processState = 'finished';
+        state.form.processState = 'success';
         updateFeedData(state);
       })
       .catch((err) => {

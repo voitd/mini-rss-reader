@@ -1,18 +1,12 @@
 import i18next from 'i18next';
 import listen from './listeners';
 import watchState from './watchers';
-
 import resources from './locales';
-
-i18next.init({
-  lng: 'en',
-  resources,
-});
 
 const app = () => {
   const state = {
     form: {
-      processState: 'finished',
+      processState: 'success',
       input: {
         url: '',
       },
@@ -29,7 +23,7 @@ const app = () => {
     },
   };
 
-  const DOMElements = {
+  const domElements = {
     form: document.querySelector('.rss-form'),
     input: document.querySelector('input'),
     btn: document.querySelector('.btn'),
@@ -38,9 +32,14 @@ const app = () => {
     alert: document.querySelector('.feedback'),
   };
 
-  listen(state, DOMElements);
+  listen(state, domElements);
 
-  watchState(state, DOMElements);
+  watchState(state, domElements);
+
+  i18next.init({
+    lng: 'en',
+    resources,
+  });
 };
 
 export default app;

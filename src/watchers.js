@@ -1,8 +1,8 @@
 import { watch } from 'melanke-watchjs';
 import { renderNews, renderChannels, renderAlert } from './renders';
 
-const watchState = (state, DOMElements) => {
-  const { channelsList, itemsList, input, btn, alert } = DOMElements;
+const watchState = (state, domElements) => {
+  const { channelsList, itemsList, input, btn, alert } = domElements;
 
   watch(state.data, ['activeFeedID', 'feeds'], () => renderChannels(channelsList, state));
 
@@ -31,7 +31,7 @@ const watchState = (state, DOMElements) => {
         errors.type = 'warning';
         errors.style = 'warning';
         break;
-      case 'finished':
+      case 'success':
         input.value = '';
         btn.disabled = true;
         input.disabled = false;
