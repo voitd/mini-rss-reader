@@ -16,9 +16,13 @@
 >This is an educational project [Hexlet](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=webpack-package) in which technologies such as: Webpack, Axios, Yup, and deploing to Zeit(Vercel)
 
 
-### 📷 Screenshot
 
+<details>
+  <summary> 📷 Screenshot</summary>
+  
   <img width="820" alt="85205244-c72b8700-b322-11ea-9fac-c07182271316" src="https://user-images.githubusercontent.com/60138143/97933925-cdc01580-1d7c-11eb-8baf-11b46419939b.png">
+  
+</details>
 
  
 ## 💾 Installation
