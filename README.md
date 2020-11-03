@@ -3,9 +3,9 @@
   <h3 align="center">RSS-Reader</h3>
   <h4 align="center">Mini RSS Reader with automatic updating.</h4>
   <p align="center">
-    <a href="/LICENSE.md"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=for-the-badge"></a>
-    <a href="https://github.com/voitd/frontend-project-lvl3/actions?query=workflow%3A"rss-reader-ci""><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/voitd/mini-rss-reader/rss-reader-ci?style=for-the-badge"></a>
-     <a href="https://api.codeclimate.com/v1/badges/694b56fbf05eab3f9a58/maintainability"> <img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/voitd/frontend-project-lvl3?style=for-the-badge"></a>
+    <a href="/LICENSE.md"><img alt="Software License" src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat"></a>
+    <a href="https://github.com/voitd/frontend-project-lvl3/actions?query=workflow%3A"rss-reader-ci""><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/voitd/mini-rss-reader/rss-reader-ci?style=flat"></a>
+     <a href="https://api.codeclimate.com/v1/badges/694b56fbf05eab3f9a58/maintainability"> <img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/voitd/frontend-project-lvl3?style=flat"></a>
   </p>
   <h4 align="center"><a href="https://rss-reader.voitd.now.sh"><strong>Demo on Vercel</strong></a></h4>
 </p>
