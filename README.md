@@ -7,7 +7,7 @@
     <a href="https://github.com/voitd/frontend-project-lvl3/actions?query=workflow%3A"rss-reader-ci""><img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/voitd/mini-rss-reader/rss-reader-ci?style=for-the-badge"></a>
      <a href="https://api.codeclimate.com/v1/badges/694b56fbf05eab3f9a58/maintainability"> <img alt="Code Climate maintainability" src="https://img.shields.io/codeclimate/maintainability/voitd/frontend-project-lvl3?style=for-the-badge"></a>
   </p>
-  <h4 align="center"><a href="https://rss-reader.voitd.now.sh"><strong>Demo</strong></a></h4>
+  <h4 align="center"><a href="https://rss-reader.voitd.now.sh"><strong>Demo on Vercel</strong></a></h4>
 </p>
 
 
@@ -18,7 +18,7 @@
 
 
 <details>
-  <summary> 📷 Screenshot</summary>
+  <summary> 📷 <strong>Screenshot</strong></summary>
   
   <img width="820" alt="85205244-c72b8700-b322-11ea-9fac-c07182271316" src="https://user-images.githubusercontent.com/60138143/97933925-cdc01580-1d7c-11eb-8baf-11b46419939b.png">
   
