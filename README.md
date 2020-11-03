@@ -16,11 +16,12 @@ This is an educational project [Hexlet](https://ru.hexlet.io/pages/about?utm_sou
 [View Demo](https://rss-reader.voitd.now.sh)
 
 
-### Screenshot
-
-<img align="center" width="820" alt="RSSReader-Hexlet-FrontEnd-lvl3" src="https://user-images.githubusercontent.com/60138143/85205244-c72b8700-b322-11ea-9fac-c07182271316.png">
-
-## Installation
+### 📷 Screenshot
+<p align="center">
+  <img width="820" alt="85205244-c72b8700-b322-11ea-9fac-c07182271316" src="https://user-images.githubusercontent.com/60138143/97933925-cdc01580-1d7c-11eb-8baf-11b46419939b.png">
+ </p>
+ 
+## 💾 Installation
 
 Download or clone repository
 
@@ -28,13 +29,13 @@ Download or clone repository
 make install
 ```
 
-## Installation
+## ⚙️ Run
 
 ```bash
 make dev
 ```
 
-## Usage
+## 💻 Usage
 
 Just insert URL in to input field and press 'ADD' button
 
@@ -50,7 +51,7 @@ https://www1.cbn.com/app_feeds/rss/news/rss.php?section=world
 http://feeds.bbci.co.uk/news/technology/rss.xml
 ```
 
-## Technologies
+## 🛠 Technologies
 
 - Webpack
 - Axios
@@ -61,12 +62,6 @@ http://feeds.bbci.co.uk/news/technology/rss.xml
 - Vercel(Zeit)
 - Bootstrap 4
 
-<!-- ## Contributing
+## 📄 License
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/) -->
+[MIT](https://choosealicense.com/licenses/mit/)
